@@ -6,14 +6,17 @@
       </div>
       <div class="box-right">
         <h1>MetaWall</h1>
-        <h2>到元宇宙展開全新社交圈</h2>
+        <h2>註冊</h2>
         <div class="input-group">
+          <input type="text" placeholder="暱稱" />
+          <p>請輸入暱稱</p>
           <input type="text" placeholder="Email" />
-          <p>電子信箱或密碼錯誤</p>
+          <p>電子信箱重複申請</p>
           <input type="password" placeholder="Password" />
-          <p>電子信箱或密碼錯誤</p>
-          <button>登入</button>
-          <div class="register" @click="goRegister()">註冊帳號</div>
+          <p>密碼不須大於8碼</p>
+          <input type="password" placeholder="CheckPassword" />
+          <p>密碼與確認密碼不符合</p>
+          <button>註冊</button>
         </div>
       </div>
     </div>
@@ -21,16 +24,9 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
 export default {
   setup() {
-    const router = useRouter();
-    const goRegister = () => {
-      router.push({ name: "register" });
-    };
-    return {
-      goRegister,
-    };
+    return {};
   },
 };
 </script>

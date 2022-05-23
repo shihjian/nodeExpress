@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <navbar />
+    <login />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import navbar from "@/components/homePage/header.vue";
+import login from "@/components/login/login.vue";
 
 export default {
-  name: "HomeView",
+  name: "LoginView",
   components: {
-    navbar,
+    login,
   },
 };
 </script>
