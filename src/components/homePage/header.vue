@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="container">
-      <div class="logo">MetaWall</div>
+      <div class="logo" @click="goHome()">MetaWall</div>
       <div class="img">
         <div class="userPhoto">
           <img src="../../assets/img/default.png" alt="user" />
@@ -10,7 +10,7 @@
         <div class="menu" v-show="showMenu">
           <ul>
             <li>我的貼文牆</li>
-            <li>修改個人資料</li>
+            <li @click="goEdit()">修改個人資料</li>
             <li>登出</li>
           </ul>
         </div>
@@ -21,13 +21,22 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 export default {
   setup() {
+    const router = useRouter();
     const showMenu = ref(false);
     const changeShow = () => {
       showMenu.value = !showMenu.value;
     };
-    return { showMenu, changeShow };
+    const goHome = () => {
+      router.push({ name: "postWall" });
+    };
+
+    const goEdit = () => {
+      router.push({ name: "editUser" });
+    };
+    return { showMenu, changeShow, goHome, goEdit };
   },
 };
 </script>
@@ -72,7 +81,7 @@ export default {
       }
       .menu {
         position: absolute;
-        top: 35px;
+        top: 55px;
         background-color: #fff;
         ul {
           border: 2px solid;

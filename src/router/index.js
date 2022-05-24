@@ -26,6 +26,18 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ "../components/poseWall/poseWall.vue"),
       },
+      {
+        path: "addCard",
+        name: "addCard",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../components/addCard/addCard.vue"),
+      },
+      {
+        path: "editUser",
+        name: "editUser",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../components/editUser/editUser.vue"),
+      },
     ],
   },
 ];

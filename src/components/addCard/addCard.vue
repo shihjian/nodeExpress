@@ -1,0 +1,106 @@
+<template>
+  <div class="addCard">
+    <div class="title">
+      <p>張貼動態</p>
+    </div>
+    <div class="addCardContent">
+      <p>貼文內容</p>
+      <div class="textArea">
+        <textarea placeholder="請輸入您的貼文內容.." />
+      </div>
+      <input type="file" class="imgUpdate" @change="fileSelected" />
+      <div class="imgbox">
+        <img :src="image" alt="" v-show="image" />
+      </div>
+      <div class="submit">
+        <p>送出貼文</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref } from "vue";
+export default {
+  setup() {
+    const image = ref("");
+    const fileSelected = (e) => {
+      const file = e.target.files.item(0); // 取得File物件
+      const reader = new FileReader(); // 建立FileReader 監聽 Load 事件
+      reader.addEventListener("load", imageLoader);
+      reader.readAsDataURL(file);
+      console.log(file);
+    };
+    const imageLoader = (event) => {
+      image.value = event.target.result;
+    };
+    return { fileSelected, imageLoader, image };
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.addCard {
+  margin-right: 25px;
+  .title {
+    margin-bottom: 11px;
+    padding: 18px 0px;
+    background-color: #ffffff;
+    border: 2px solid #000400;
+    p {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+  .addCardContent {
+    padding: 32px;
+    border: 2px solid #000400;
+    background-color: #fff;
+    border-radius: 8px;
+    p {
+      margin-bottom: 5px;
+    }
+    .textArea {
+      textarea {
+        width: 500px;
+        height: 169px;
+        padding: 5px;
+        resize: none;
+        border: 2px solid #000400;
+      }
+    }
+  }
+  .imgUpdate {
+    padding: 4px 32px;
+    margin-bottom: 5px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 4px;
+  }
+  .imgbox {
+    width: 514px;
+    height: 157px;
+    border: 2px solid #000400;
+    border-radius: 8px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .submit {
+    width: 30%;
+    margin: 10px auto;
+    text-align: center;
+    padding: 16px 120px;
+    background-color: #eec32a;
+    border: 2px solid #000400;
+    box-shadow: -2px 2px 0px #000400;
+    border-radius: 8px;
+    cursor: pointer;
+    p{
+        font-weight: bold;
+    }
+  }
+}
+</style>

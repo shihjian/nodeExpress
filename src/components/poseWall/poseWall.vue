@@ -10,7 +10,7 @@
       <div class="search">
         <div class="searchBox">
           <input type="text" value="" placeholder="搜尋貼文" />
-          <div class="icon"></div>
+          <div class="icon"><i class="fas fa-search"></i></div>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@ select {
   border: 2px solid #000;
 }
 input {
-  width: 81%;
+  width: 83%;
   padding: 16px;
 }
 
@@ -94,6 +94,11 @@ input {
       .icon {
         width: 46px;
         height: 49px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        color: #fff;
         border-left: 2px solid #000;
         background-color: #03438d;
       }
@@ -218,6 +223,13 @@ input {
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .poseWall {
+    margin: 0;
+    padding: 20px;
   }
 }
 </style>

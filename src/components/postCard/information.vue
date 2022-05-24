@@ -1,6 +1,6 @@
 <template>
   <div class="information">
-    <button>張貼動態</button>
+    <button @click="goAddCard">張貼動態</button>
     <div class="btn-group">
       <ul>
         <li>
@@ -23,7 +23,16 @@
 </template>
 
 <script>
-export default {};
+import { useRouter } from "vue-router";
+export default {
+  setup() {
+    const router = useRouter();
+    const goAddCard = () => {
+      router.push({ name: "addCard" });
+    };
+    return { goAddCard };
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -50,6 +59,7 @@ button {
 }
 
 .information {
+  box-sizing: border-box;
   width: 400px;
   padding: 32px 24px;
   display: flex;
