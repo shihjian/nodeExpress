@@ -3,7 +3,9 @@
     <div class="container">
       <div class="logo">MetaWall</div>
       <div class="img">
-        <img src="../../assets/img/default.png" alt="user" />
+        <div class="userPhoto">
+          <img src="../../assets/img/default.png" alt="user" />
+        </div>
         <p @click="changeShow()">王小明</p>
         <div class="menu" v-show="showMenu">
           <ul>
@@ -52,6 +54,22 @@ export default {
       display: flex;
       align-items: center;
       position: relative;
+      .userPhoto {
+        margin-right: 12px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        border: 2px solid #000400;
+        background-color: #e2edfa;
+        border-radius: 50%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
       .menu {
         position: absolute;
         top: 35px;
@@ -64,7 +82,7 @@ export default {
             cursor: pointer;
           }
           li:hover {
-            background-color: #EFECE7;
+            background-color: #efece7;
           }
         }
       }

@@ -17,7 +17,9 @@
     <div class="chatContent">
       <div class="userContent">
         <div class="userContentBox">
-          <img src="../../assets/img/default.png" alt="user" />
+          <div class="img">
+            <img src="../../assets/img/default.png" alt="user" />
+          </div>
           <div class="userInfo">
             <p>邊緣小杰</p>
             <p class="date">2022/9/10</p>
@@ -108,6 +110,21 @@ input {
     .userContent {
       .userContentBox {
         display: flex;
+        .img {
+          margin-right: 12px;
+          width: 50px;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          border: 2px solid #000400;
+          background-color: #e2edfa;
+          border-radius: 50%;
+          img {
+            width: 100%;
+          }
+        }
         .userInfo {
           padding-left: 16px;
           display: flex;
@@ -125,7 +142,7 @@ input {
         display: flex;
         align-items: center;
         .fasLike {
-          color: #03438D;
+          color: #03438d;
           cursor: pointer;
         }
         p {
@@ -142,6 +159,19 @@ input {
           width: 100%;
           display: flex;
           .img {
+            margin-right: 12px;
+            width: 62px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            border: 2px solid #000400;
+            background-color: #e2edfa;
+            border-radius: 50%;
+            img {
+              width: 100%;
+            }
           }
           .btnGroup {
             width: 100%;
@@ -165,6 +195,18 @@ input {
           border-radius: 12px;
           .img {
             margin-right: 12px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            border: 2px solid #000400;
+            background-color: #e2edfa;
+            border-radius: 50%;
+            img {
+              width: 100%;
+            }
           }
           .messageInfo {
             display: flex;

@@ -4,15 +4,17 @@
     <div class="btn-group">
       <ul>
         <li>
-          <img src="@/assets/img/default.png" alt="" />
+          <div class="userImg">
+            <img src="@/assets/img/default.png" alt="" />
+          </div>
           <p>邊緣小杰</p>
         </li>
         <li>
-          <img src="@/assets/img/default.png" alt="" />
+          <div class="imgBox"><i class="far fa-bell"></i></div>
           <p>追蹤名單</p>
         </li>
         <li>
-          <img src="@/assets/img/default.png" alt="" />
+          <div class="imgBox"><i class="far fa-thumbs-up"></i></div>
           <p>我按讚的名單</p>
         </li>
       </ul>
@@ -34,6 +36,19 @@ button {
   box-shadow: -2px 2px 0px #000400;
   border-radius: 8px;
 }
+
+.imgBox {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  border: 2px solid #000400;
+  background-color: #e2edfa;
+  border-radius: 50%;
+}
+
 .information {
   width: 400px;
   padding: 32px 24px;
@@ -44,6 +59,14 @@ button {
   border: 2px solid #000;
   background-color: #fff;
   .btn-group {
+    .userImg {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      img {
+        width: 100%;
+      }
+    }
     ul li {
       margin: 20px 0px;
       display: flex;
