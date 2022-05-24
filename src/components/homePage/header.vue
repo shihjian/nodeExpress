@@ -4,8 +4,8 @@
       <div class="logo">MetaWall</div>
       <div class="img">
         <img src="../../assets/img/default.png" alt="user" />
-        <p>王小明</p>
-        <div class="menu">
+        <p @click="changeShow()">王小明</p>
+        <div class="menu" v-show="showMenu">
           <ul>
             <li>我的貼文牆</li>
             <li>修改個人資料</li>
@@ -18,9 +18,14 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   setup() {
-    return {};
+    const showMenu = ref(false);
+    const changeShow = () => {
+      showMenu.value = !showMenu.value;
+    };
+    return { showMenu, changeShow };
   },
 };
 </script>
@@ -56,6 +61,9 @@ export default {
             padding: 5px;
             border-bottom: 2px solid;
             cursor: pointer;
+          }
+          li:hover {
+            background-color: #EFECE7;
           }
         }
       }
