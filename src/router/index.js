@@ -18,9 +18,15 @@ const routes = [
     path: "/home",
     name: "home",
     component: () =>
-      import(
-        /* webpackChunkName: "about" */ "../views/HomeView.vue"
-      ),
+      import(/* webpackChunkName: "about" */ "../views/HomeView.vue"),
+    children: [
+      {
+        path: "postWall",
+        name: "postWall",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../components/poseWall/poseWall.vue"),
+      },
+    ],
   },
 ];
 

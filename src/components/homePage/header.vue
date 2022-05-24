@@ -34,6 +34,7 @@ export default {
 .header {
   width: 100%;
   border-bottom: 2px solid #000;
+  background-color: #fff;
   .container {
     max-width: 1024px;
     margin: 0 auto;
