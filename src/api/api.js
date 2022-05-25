@@ -24,3 +24,8 @@ export const getSignUp = (data) => userRequest.post("/users/sign_up", data);
 
 // 取得貼文
 export const getPosts = (data) => userRequest.get("/posts", data);
+
+// 搜尋
+export const getSearch = data => userRequest.get("/posts?sort="+`${data.sort}`);
+// 關鍵字搜尋
+export const getSearchKey = data => userRequest.get("/posts?q="+`${data.q}`);

@@ -2,36 +2,45 @@
   <div class="poseWall">
     <div class="btnGroup">
       <div class="select">
-        <select>
-          <option value="desc">最新貼文</option>
-          <option value="asc">最舊貼文</option>
+        <select v-model="select.sort">
+          <option value="asc">最新貼文</option>
+          <option value="desc">最舊貼文</option>
         </select>
       </div>
       <div class="search">
         <div class="searchBox">
-          <input type="text" value="" placeholder="搜尋貼文" />
-          <div class="icon"><i class="fas fa-search"></i></div>
+          <input
+            type="text"
+            @keyup.enter="searchKey()"
+            v-model="select.q"
+            placeholder="搜尋貼文"
+          />
+          <div @click="searchKey()" class="icon">
+            <i class="fas fa-search"></i>
+          </div>
         </div>
       </div>
     </div>
-    <div class="chatContent">
+    <div class="chatContent" v-for="item in data" :key="item.content">
       <div class="userContent">
         <div class="userContentBox">
           <div class="img">
             <img src="../../assets/img/default.png" alt="user" />
           </div>
           <div class="userInfo">
-            <p>邊緣小杰</p>
+            <p>{{ item.user.name }}</p>
             <p class="date">2022/9/10</p>
           </div>
         </div>
-        <div class="message"><p>哈囉你好嗎</p></div>
+        <div class="message">
+          <p>{{ item.content }}</p>
+        </div>
         <div class="userImg">
-          <img src="../../assets/img/image.png" alt="img" />
+          <img :src="`${item.image}`" v-if="item.image" alt="img" />
         </div>
         <div class="likeCount">
           <i class="fas fasLike fa-thumbs-up"></i>
-          <p>5</p>
+          <p>{{ item.likes }}</p>
         </div>
         <div class="userControl">
           <div class="messageArea">
@@ -60,24 +69,43 @@
 </template>
 
 <script>
-import { apiGetPosts } from "@/api/index";
-import { onMounted } from "vue";
+import { apiGetPosts, apiGetSearch, apiGetSearchKey } from "@/api/index";
+import { onMounted, reactive, ref, watch } from "vue";
 export default {
   setup() {
+    const data = ref();
+    const select = reactive({
+      sort: "asc",
+      q: null,
+    });
     const getData = async () => {
       try {
         const item = await apiGetPosts();
         console.log(item);
+        data.value = item.data.data;
         // 其他的處理
       } catch (err) {
         console.error(err);
       }
     };
 
+    const searchKey = async () => {
+      const item = await apiGetSearchKey(select);
+      data.value = item.data.data;
+    };
+
+    watch(
+      () => select.sort,
+      async (newValue) => {
+        const item = await apiGetSearch(select);
+        data.value = item.data.data;
+      }
+    );
+
     onMounted(() => {
       getData();
     });
-    return {};
+    return { data, select, searchKey };
   },
 };
 </script>

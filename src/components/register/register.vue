@@ -39,7 +39,7 @@
 <script>
 import { apiGetSignUp } from "@/api/index";
 import { useRouter } from "vue-router";
-import { reactive, ref, watch } from "vue";
+import { reactive } from "vue";
 export default {
   setup() {
     const router = useRouter();
