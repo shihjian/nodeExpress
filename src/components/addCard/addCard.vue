@@ -8,7 +8,9 @@
       <div class="textArea">
         <textarea placeholder="請輸入您的貼文內容.." />
       </div>
-      <input type="file" class="imgUpdate" @change="fileSelected" />
+      <a href="javascript:;" class="a-upload"
+        ><input @change="fileSelected" type="file" name="" id="" />上傳大頭照</a
+      >
       <div class="imgbox">
         <img :src="image" alt="" v-show="image" />
       </div>
@@ -40,6 +42,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.a-upload {
+  margin: 15px;
+  padding: 4px 20px;
+  height: 20px;
+  line-height: 20px;
+  position: relative;
+  cursor: pointer;
+  color: #fff;
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.a-upload input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
+
 .addCard {
   margin-right: 25px;
   .title {
@@ -63,7 +89,7 @@ export default {
     }
     .textArea {
       textarea {
-        width: 500px;
+        width: 97%;
         height: 169px;
         padding: 5px;
         resize: none;
@@ -79,7 +105,7 @@ export default {
     border-radius: 4px;
   }
   .imgbox {
-    width: 514px;
+    width: 100%;
     height: 157px;
     border: 2px solid #000400;
     border-radius: 8px;
@@ -98,8 +124,8 @@ export default {
     box-shadow: -2px 2px 0px #000400;
     border-radius: 8px;
     cursor: pointer;
-    p{
-        font-weight: bold;
+    p {
+      font-weight: bold;
     }
   }
 }
