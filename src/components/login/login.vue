@@ -8,11 +8,14 @@
         <h1>MetaWall</h1>
         <h2>到元宇宙展開全新社交圈</h2>
         <div class="input-group">
-          <input type="text" placeholder="Email" />
-          <p>電子信箱或密碼錯誤</p>
-          <input type="password" placeholder="Password" />
-          <p>電子信箱或密碼錯誤</p>
-          <button>登入</button>
+          <input type="text" placeholder="Email" v-model="signIn.email" />
+          <input
+            type="password"
+            placeholder="Password"
+            v-model="signIn.password"
+          />
+          <p v-show="status">{{ message }}</p>
+          <button @click="goSingIn()">登入</button>
           <div class="register" @click="goRegister()">註冊帳號</div>
         </div>
       </div>
@@ -21,15 +24,42 @@
 </template>
 
 <script>
+import { apiGetSignIn } from "@/api/index";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { reactive, ref } from "vue";
 export default {
   setup() {
     const router = useRouter();
+    const store = useStore();
+    const status = ref(false);
+    const message = ref(null);
+    const signIn = reactive({
+      email: "",
+      password: "",
+    });
+
+    const goSingIn = async () => {
+      try {
+        const singIn = await apiGetSignIn(signIn);
+        store.commit("setUserInfo", singIn.data);
+        localStorage.setItem("token", singIn.data.token);
+        router.push({ name: "postWall" });
+      } catch (err) {
+        message.value = err.response.data.message;
+        status.value = true;
+      }
+    };
+
     const goRegister = () => {
       router.push({ name: "register" });
     };
     return {
+      goSingIn,
       goRegister,
+      signIn,
+      message,
+      status,
     };
   },
 };

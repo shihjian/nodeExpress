@@ -60,7 +60,26 @@
 </template>
 
 <script>
-export default {};
+import { apiGetPosts } from "@/api/index";
+import { onMounted } from "vue";
+export default {
+  setup() {
+    const getData = async () => {
+      try {
+        const item = await apiGetPosts();
+        console.log(item);
+        // 其他的處理
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // onMounted(() => {
+    //   getData();
+    // });
+    return {};
+  },
+};
 </script>
 
 <style scoped lang="scss">
