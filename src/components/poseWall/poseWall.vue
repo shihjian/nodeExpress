@@ -74,9 +74,9 @@ export default {
       }
     };
 
-    // onMounted(() => {
-    //   getData();
-    // });
+    onMounted(() => {
+      getData();
+    });
     return {};
   },
 };
