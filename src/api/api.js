@@ -3,6 +3,7 @@ const userRequest = axios.create({
   baseURL: "https://secure-temple-98193.herokuapp.com/",
 });
 
+// 攔截 API request 的回傳
 userRequest.interceptors.request.use(
   (request) => {
     // API送出前可以做最後的處理
@@ -15,6 +16,16 @@ userRequest.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// 攔截 API response 的回傳
+userRequest.interceptors.response.use(response  => {
+    // 這邊可以對回來的資料先進行驗證處理，再來決定要不要把資料給吐出去
+    console.log("完成")
+    return Promise.resolve(response);
+}, error => {
+    // 這邊當API發生錯誤的時候就可以處理 Error handling
+    return Promise.reject(error.response.data);
+})
 
 // 登入
 export const getSignIn = (data) => userRequest.post("/users/sign_in", data);
@@ -29,6 +40,8 @@ export const getPosts = (data) => userRequest.get("/posts", data);
 export const postPosts = (data) => userRequest.post("/posts", data);
 
 // 搜尋
-export const getSearch = data => userRequest.get("/posts?sort="+`${data.sort}`);
+export const getSearch = (data) =>
+  userRequest.get("/posts?sort=" + `${data.sort}`);
 // 關鍵字搜尋
-export const getSearchKey = data => userRequest.get("/posts?q="+`${data.q}`);
+export const getSearchKey = (data) =>
+  userRequest.get("/posts?q=" + `${data.q}`);
