@@ -6,7 +6,7 @@
     <div class="addCardContent">
       <p>貼文內容</p>
       <div class="textArea">
-        <textarea placeholder="請輸入您的貼文內容.." />
+        <textarea placeholder="請輸入您的貼文內容.." v-model="data.content" />
       </div>
       <a href="javascript:;" class="a-upload"
         ><input @change="fileSelected" type="file" name="" id="" />上傳大頭照</a
@@ -14,7 +14,7 @@
       <div class="imgbox">
         <img :src="image" alt="" v-show="image" />
       </div>
-      <div class="submit">
+      <div @click="submit" class="submit" >
         <p>送出貼文</p>
       </div>
     </div>
@@ -22,10 +22,15 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { apiPostPosts } from "@/api/index";
+import { useRouter } from "vue-router";
+import { ref, reactive } from "vue";
 export default {
   setup() {
     const image = ref("");
+    const data = reactive({
+      content: null,
+    });
     const fileSelected = (e) => {
       const file = e.target.files.item(0); // 取得File物件
       const reader = new FileReader(); // 建立FileReader 監聽 Load 事件
@@ -36,7 +41,13 @@ export default {
     const imageLoader = (event) => {
       image.value = event.target.result;
     };
-    return { fileSelected, imageLoader, image };
+
+    const submit = async () => {
+      try {
+        const post = await apiPostPosts(data);
+      } catch (err) {}
+    };
+    return { fileSelected, imageLoader, image, data,submit };
   },
 };
 </script>

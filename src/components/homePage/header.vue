@@ -6,7 +6,7 @@
         <div class="userPhoto">
           <img src="../../assets/img/default.png" alt="user" />
         </div>
-        <p @click="changeShow()">王小明</p>
+        <p @click="changeShow()">{{ userInfo.name }}</p>
         <div class="menu" v-show="showMenu">
           <ul>
             <li>我的貼文牆</li>
@@ -20,12 +20,17 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, reactive, computed, onMounted } from "vue";
+import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default {
   setup() {
     const router = useRouter();
+    const store = useStore();
     const showMenu = ref(false);
+    const userInfo = reactive({
+      name: null,
+    });
     const changeShow = () => {
       showMenu.value = !showMenu.value;
     };
@@ -36,7 +41,16 @@ export default {
     const goEdit = () => {
       router.push({ name: "editUser" });
     };
-    return { showMenu, changeShow, goHome, goEdit };
+
+    const setUserInfo = () => {
+      userInfo.name = localStorage.getItem("user");
+    };
+
+    onMounted(() => {
+      setUserInfo();
+    });
+
+    return { showMenu, changeShow, goHome, goEdit, userInfo };
   },
 };
 </script>
