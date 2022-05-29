@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { apiGetSignIn,apiPostUserInfo } from "@/api/index";
 import { ref } from "vue";
 export default {
   setup() {

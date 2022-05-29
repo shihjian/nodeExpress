@@ -18,14 +18,17 @@ userRequest.interceptors.request.use(
 );
 
 // 攔截 API response 的回傳
-userRequest.interceptors.response.use(response  => {
+userRequest.interceptors.response.use(
+  (response) => {
     // 這邊可以對回來的資料先進行驗證處理，再來決定要不要把資料給吐出去
-    console.log("完成")
+    console.log("完成");
     return Promise.resolve(response);
-}, error => {
+  },
+  (error) => {
     // 這邊當API發生錯誤的時候就可以處理 Error handling
     return Promise.reject(error.response.data);
-})
+  }
+);
 
 // 登入
 export const getSignIn = (data) => userRequest.post("/users/sign_in", data);
@@ -42,6 +45,13 @@ export const postPosts = (data) => userRequest.post("/posts", data);
 // 搜尋
 export const getSearch = (data) =>
   userRequest.get("/posts?sort=" + `${data.sort}`);
+
 // 關鍵字搜尋
 export const getSearchKey = (data) =>
   userRequest.get("/posts?q=" + `${data.q}`);
+
+// 修改個人資訊
+export const postUserInfo = (data) => userRequest.patch("/users/profile");
+
+// 上傳圖片
+export const postPhoto = (data) => userRequest.post("/upload");
