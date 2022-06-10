@@ -29,7 +29,7 @@
           </div>
           <div class="userInfo">
             <p>{{ item.user.name }}</p>
-            <p class="date">2022/9/10</p>
+            <p class="date">{{ item.createdAt }}</p>
           </div>
         </div>
         <div class="message">
@@ -94,7 +94,6 @@ export default {
     const getData = async () => {
       try {
         const item = await apiGetPosts();
-        console.log(item);
         data.value = item.data.data;
       } catch (err) {
         console.error(err);

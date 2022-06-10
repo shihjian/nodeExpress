@@ -14,7 +14,7 @@
       <div class="imgbox">
         <img :src="image" alt="" v-show="image" />
       </div>
-      <div @click="submit" class="submit" >
+      <div @click="submit" class="submit">
         <p>送出貼文</p>
       </div>
     </div>
@@ -22,32 +22,52 @@
 </template>
 
 <script>
-import { apiPostPosts } from "@/api/index";
+import { apiPostPosts, apiPostPhoto } from "@/api/index";
 import { useRouter } from "vue-router";
 import { ref, reactive } from "vue";
 export default {
   setup() {
     const image = ref("");
+    const postFile = ref(null);
     const data = reactive({
       content: null,
+      image: null,
     });
+
     const fileSelected = (e) => {
       const file = e.target.files.item(0); // 取得File物件
       const reader = new FileReader(); // 建立FileReader 監聽 Load 事件
       reader.addEventListener("load", imageLoader);
       reader.readAsDataURL(file);
-      console.log(file);
+      postFile.value = file;
+      
     };
+
     const imageLoader = (event) => {
       image.value = event.target.result;
     };
 
+    const upload = async () => {
+      try {
+        const formData = new FormData();
+        formData.append("image", postFile.value);
+        const result = await apiPostPhoto(formData);
+        data.image = result.data.imgUrl;
+      } catch (e) {
+        return Promise.reject(e);
+      }
+    };
+
     const submit = async () => {
       try {
+        await upload();
         const post = await apiPostPosts(data);
-      } catch (err) {}
+        console.log("post", post);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    return { fileSelected, imageLoader, image, data,submit };
+    return { fileSelected, imageLoader, image, data, submit, postFile };
   },
 };
 </script>

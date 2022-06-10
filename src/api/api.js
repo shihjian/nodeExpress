@@ -24,8 +24,6 @@ userRequest.interceptors.request.use(
 // 攔截 API response 的回傳
 userRequest.interceptors.response.use(
   (response) => {
-    // 這邊可以對回來的資料先進行驗證處理，再來決定要不要把資料給吐出去
-    console.log("完成");
     store.commit("setApiStatus", false);
     return Promise.resolve(response);
   },

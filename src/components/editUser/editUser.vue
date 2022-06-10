@@ -80,12 +80,12 @@ export default {
     });
 
     const changeType = (e) => {
-      console.log(e);
       checkType.value = e;
     };
 
     const confirm = async () => {
       try {
+        await upload();
         await apiPostUserInfo(data);
       } catch (err) {
         console.log(err);
@@ -98,7 +98,7 @@ export default {
       reader.addEventListener("load", imageLoader);
       reader.readAsDataURL(file);
       postFile.value = file;
-      upload();
+      
     };
 
     const imageLoader = async (event) => {
@@ -110,7 +110,6 @@ export default {
         const formData = new FormData();
         formData.append("image", postFile.value);
         const result = await apiPostPhoto(formData);
-        console.log("$$$$$", result);
         data.photo = result.data.imgUrl;
       } catch (e) {
         return Promise.reject(e);
