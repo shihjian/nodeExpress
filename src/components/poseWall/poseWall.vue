@@ -34,6 +34,9 @@
         </div>
         <div class="message">
           <p>{{ item.content }}</p>
+          <div class="imgBox">
+            <img :src="item.image" alt="">
+          </div>
         </div>
         <div class="userImg">
           <img :src="`${item.image}`" v-if="item.image" alt="img" />
