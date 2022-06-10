@@ -1,4 +1,7 @@
 import axios from "axios";
+import store from "@/store";
+import { useStore } from "vuex";
+
 const userRequest = axios.create({
   baseURL: "https://secure-temple-98193.herokuapp.com/",
 });
@@ -7,6 +10,7 @@ const userRequest = axios.create({
 userRequest.interceptors.request.use(
   (request) => {
     // API送出前可以做最後的處理
+    store.commit("setApiStatus", true);
     request.headers["Authorization"] =
       "Bearer" + "\u0020" + localStorage.getItem("token");
     return request;
@@ -22,6 +26,7 @@ userRequest.interceptors.response.use(
   (response) => {
     // 這邊可以對回來的資料先進行驗證處理，再來決定要不要把資料給吐出去
     console.log("完成");
+    store.commit("setApiStatus", false);
     return Promise.resolve(response);
   },
   (error) => {
@@ -51,10 +56,10 @@ export const getSearchKey = (data) =>
   userRequest.get("/posts?q=" + `${data.q}`);
 
 // 修改個人資訊
-export const postUserInfo = (data) => userRequest.patch("/users/profile",data);
+export const postUserInfo = (data) => userRequest.patch("/users/profile", data);
 
 // 上傳圖片
-export const postPhoto = (data) => userRequest.post("/upload",data);
+export const postPhoto = (data) => userRequest.post("/upload", data);
 
 // 留言
 export const postMessage = (data) => userRequest.post(`/${data}/comment`);
