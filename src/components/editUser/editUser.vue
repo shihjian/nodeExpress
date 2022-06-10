@@ -14,31 +14,39 @@
         <div class="changeBox">
           <div class="imgBox">
             <div class="img">
-              <img src="" alt="" srcset="" />
+              <img :src="image" alt="" srcset="" />
             </div>
             <a href="javascript:;" class="a-upload"
-              ><input type="file" name="" id="" />上傳大頭照</a
+              ><input type="file" @change="fileSelected" />上傳大頭照</a
             >
           </div>
           <div class="userInfo">
             <p>暱稱</p>
-            <input type="text" placeholder="請輸入暱稱" />
+            <input type="text" placeholder="請輸入暱稱" v-model="data.name" />
             <div class="checkBox">
               <p>性別</p>
-              <input type="radio" id="boy" name="drone" value="男生" checked />
+              <input
+                type="radio"
+                id="boy"
+                name="drone"
+                value="male"
+                checked
+                v-model="data.sex"
+              />
               <label for="boy">男生</label>
               <input
                 class="radio"
                 type="radio"
                 id="girl"
                 name="drone"
-                value="女生"
+                value="female"
+                v-model="data.sex"
               />
               <label for="girl">女生</label>
             </div>
           </div>
           <div class="submit">
-            <div class="confirm"><p>送出更新</p></div>
+            <div class="confirm" @click.prevent="confirm"><p>送出更新</p></div>
           </div>
         </div>
       </div>
@@ -58,16 +66,67 @@
 </template>
 
 <script>
-import { apiGetSignIn,apiPostUserInfo } from "@/api/index";
-import { ref } from "vue";
+import { apiGetSignIn, apiPostUserInfo, apiPostPhoto } from "@/api/index";
+import { ref, reactive } from "vue";
 export default {
   setup() {
     const checkType = ref("1");
+    const image = ref(null);
+    const postFile = ref(null);
+    const data = reactive({
+      name: "",
+      sex: "male",
+      photo: "",
+    });
+
     const changeType = (e) => {
       console.log(e);
       checkType.value = e;
     };
-    return { checkType, changeType };
+
+    const confirm = async () => {
+      try {
+        await apiPostUserInfo(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const fileSelected = async (e) => {
+      const file = e.target.files.item(0); // 取得File物件
+      const reader = new FileReader(); // 建立FileReader 監聽 Load 事件
+      reader.addEventListener("load", imageLoader);
+      reader.readAsDataURL(file);
+      postFile.value = file;
+      upload();
+    };
+
+    const imageLoader = async (event) => {
+      image.value = event.target.result;
+    };
+
+    const upload = async () => {
+      try {
+        const formData = new FormData();
+        formData.append("image", postFile.value);
+        const result = await apiPostPhoto(formData);
+        console.log("$$$$$", result);
+        data.photo = result.data.imgUrl;
+      } catch (e) {
+        return Promise.reject(e);
+      }
+    };
+    return {
+      image,
+      data,
+      checkType,
+      changeType,
+      fileSelected,
+      imageLoader,
+      upload,
+      postFile,
+      confirm,
+    };
   },
 };
 </script>
@@ -149,6 +208,7 @@ export default {
             margin-bottom: 16px;
             border: 2px solid #000400;
             border-radius: 50%;
+            overflow: hidden;
           }
         }
         .userInfo {

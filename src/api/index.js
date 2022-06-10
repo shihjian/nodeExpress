@@ -7,6 +7,7 @@ import {
   getSearchKey,
   postPosts,
   postPhoto,
+  postMessage,
 } from "@/api/api";
 
 //登入
@@ -25,3 +26,5 @@ export const apiGetSearchKey = getSearchKey;
 export const apiPostUserInfo = postUserInfo;
 // 上傳圖片
 export const apiPostPhoto = postPhoto;
+// 貼文
+export const apiPostMessage = postMessage;

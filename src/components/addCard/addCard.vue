@@ -9,7 +9,7 @@
         <textarea placeholder="請輸入您的貼文內容.." v-model="data.content" />
       </div>
       <a href="javascript:;" class="a-upload"
-        ><input @change="fileSelected" type="file" name="" id="" />上傳大頭照</a
+        ><input @change="fileSelected" type="file" />上傳大頭照</a
       >
       <div class="imgbox">
         <img :src="image" alt="" v-show="image" />

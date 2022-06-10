@@ -51,7 +51,10 @@ export const getSearchKey = (data) =>
   userRequest.get("/posts?q=" + `${data.q}`);
 
 // 修改個人資訊
-export const postUserInfo = (data) => userRequest.patch("/users/profile");
+export const postUserInfo = (data) => userRequest.patch("/users/profile",data);
 
 // 上傳圖片
-export const postPhoto = (data) => userRequest.post("/upload");
+export const postPhoto = (data) => userRequest.post("/upload",data);
+
+// 留言
+export const postMessage = (data) => userRequest.post(`/${data}/comment`);

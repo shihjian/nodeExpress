@@ -40,7 +40,7 @@
         </div>
         <div class="likeCount">
           <i class="fas fasLike fa-thumbs-up"></i>
-          <p>{{ item.likes }}</p>
+          <p>{{ item.likes.length }}</p>
         </div>
         <div class="userControl">
           <div class="messageArea">
@@ -49,17 +49,23 @@
             </div>
             <div class="btnGroup">
               <input type="text" placeholder="留言.." />
-              <div class="messageBox"><p>留言</p></div>
+              <div class="messageBox" @click.prevent="message(item.id)">
+                <p>留言</p>
+              </div>
             </div>
           </div>
-          <div class="messageHistory">
+          <div
+            class="messageHistory"
+            v-for="comments in item.comments"
+            :key="comments.content"
+          >
             <div class="img">
               <img src="../../assets/img/default.png" alt="img" />
             </div>
             <div class="messageInfo">
-              <p>大俠客</p>
+              <p>{{ comments.user.name }}</p>
               <p class="date">2022/05/24</p>
-              <p class="contentInner">俠客到此一遊</p>
+              <p class="contentInner">{{ comments.comment }}</p>
             </div>
           </div>
         </div>
@@ -69,7 +75,12 @@
 </template>
 
 <script>
-import { apiGetPosts, apiGetSearch, apiGetSearchKey } from "@/api/index";
+import {
+  apiGetPosts,
+  apiGetSearch,
+  apiGetSearchKey,
+  apiPostMessage,
+} from "@/api/index";
 import { onMounted, reactive, ref, watch } from "vue";
 export default {
   setup() {
@@ -78,20 +89,33 @@ export default {
       sort: "asc",
       q: null,
     });
+
+    // 取得貼文
     const getData = async () => {
       try {
         const item = await apiGetPosts();
         console.log(item);
         data.value = item.data.data;
-        // 其他的處理
       } catch (err) {
         console.error(err);
       }
     };
 
+    // 搜尋
     const searchKey = async () => {
       const item = await apiGetSearchKey(select);
       data.value = item.data.data;
+    };
+
+    // 留言
+    const message = async (e) => {
+      try {
+        await apiPostMessage(e);
+        getData();
+        // 其他的處理
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     watch(
@@ -105,7 +129,7 @@ export default {
     onMounted(() => {
       getData();
     });
-    return { data, select, searchKey };
+    return { data, select, searchKey, message };
   },
 };
 </script>
@@ -129,7 +153,6 @@ input {
 .poseWall {
   margin-right: 25px;
   .btnGroup {
-    margin-bottom: 16px;
     display: flex;
   }
   .search {
@@ -153,7 +176,7 @@ input {
   }
 
   .chatContent {
-    margin-bottom: 16px;
+    margin: 16px 0;
     padding: 24px 24px 0px 24px;
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 0px #000400;
@@ -208,6 +231,7 @@ input {
         justify-content: space-between;
         flex-direction: column;
         .messageArea {
+          margin-bottom: 16px;
           width: 100%;
           display: flex;
           .img {
@@ -240,6 +264,7 @@ input {
           }
         }
         .messageHistory {
+          margin-bottom: 10px;
           width: 100%;
           padding: 15px;
           display: flex;

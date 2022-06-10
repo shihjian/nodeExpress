@@ -45,6 +45,7 @@ export default {
         store.commit("setUserInfo", singIn.data);
         localStorage.setItem("token", singIn.data.token);
         localStorage.setItem("user", singIn.data.name);
+        localStorage.setItem("photo", singIn.data.photo);
         router.push({ name: "postWall" });
       } catch (err) {
         message.value = err.response.data.message;
