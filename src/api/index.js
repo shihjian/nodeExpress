@@ -8,12 +8,15 @@ import {
   postPosts,
   postPhoto,
   postMessage,
+  updatePassword,
 } from "@/api/api";
 
-//登入
+// 登入
 export const apiGetSignIn = getSignIn;
-//註冊
+// 註冊
 export const apiGetSignUp = getSignUp;
+// 更改密碼
+export const apiPostPassword = updatePassword;
 // 取得貼文
 export const apiGetPosts = getPosts;
 // 發文

@@ -41,6 +41,9 @@ export const getSignIn = (data) => userRequest.post("/users/sign_in", data);
 // 註冊
 export const getSignUp = (data) => userRequest.post("/users/sign_up", data);
 
+// 重設密碼 
+export const postPassword = (data) =>userRequest.post("/users/updatePassword",data)
+
 // 取得貼文
 export const getPosts = (data) => userRequest.get("/posts", data);
 
