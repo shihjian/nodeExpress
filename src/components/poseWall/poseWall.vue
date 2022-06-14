@@ -34,9 +34,6 @@
         </div>
         <div class="message">
           <p>{{ item.content }}</p>
-          <div class="imgBox">
-            <img :src="item.image" alt="">
-          </div>
         </div>
         <div class="userImg">
           <img :src="`${item.image}`" v-if="item.image" alt="img" />
@@ -51,7 +48,11 @@
               <img src="../../assets/img/default.png" alt="photo" />
             </div>
             <div class="btnGroup">
-              <input type="text" placeholder="留言.." />
+              <input
+                type="text"
+                placeholder="留言.."
+                v-model="messageContent.comment"
+              />
               <div class="messageBox" @click.prevent="message(item.id)">
                 <p>留言</p>
               </div>
@@ -67,7 +68,7 @@
             </div>
             <div class="messageInfo">
               <p>{{ comments.user.name }}</p>
-              <p class="date">2022/05/24</p>
+              <p class="date">{{comments.createdAt}}</p>
               <p class="contentInner">{{ comments.comment }}</p>
             </div>
           </div>
@@ -88,6 +89,10 @@ import { onMounted, reactive, ref, watch } from "vue";
 export default {
   setup() {
     const data = ref();
+    const messageContent = reactive({
+      id: "",
+      comment: "",
+    });
     const select = reactive({
       sort: "asc",
       q: null,
@@ -112,8 +117,11 @@ export default {
     // 留言
     const message = async (e) => {
       try {
-        await apiPostMessage(e);
+        messageContent.id = e;
+        await apiPostMessage(messageContent);
         getData();
+        messageContent.comment = "";
+        messageContent.id = "";
         // 其他的處理
       } catch (err) {
         console.error(err);
@@ -131,7 +139,7 @@ export default {
     onMounted(() => {
       getData();
     });
-    return { data, select, searchKey, message };
+    return { data, select, searchKey, message, messageContent };
   },
 };
 </script>

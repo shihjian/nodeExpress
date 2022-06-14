@@ -62,4 +62,5 @@ export const postUserInfo = (data) => userRequest.patch("/users/profile", data);
 export const postPhoto = (data) => userRequest.post("/upload", data);
 
 // 留言
-export const postMessage = (data) => userRequest.post(`/${data}/comment`);
+export const postMessage = (data) =>
+  userRequest.post(`/posts/${data.id}/comment`, { comment: data.comment });
