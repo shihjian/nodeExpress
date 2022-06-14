@@ -3,8 +3,8 @@
     <div class="btnGroup">
       <div class="select">
         <select v-model="select.sort">
-          <option value="asc">最新貼文</option>
-          <option value="desc">最舊貼文</option>
+          <option value="asc">最舊貼文</option>
+          <option value="desc">最新貼文</option>
         </select>
       </div>
       <div class="search">
@@ -98,7 +98,7 @@ export default {
       comment: "",
     });
     const select = reactive({
-      sort: "asc",
+      sort: "desc",
       q: null,
     });
 
