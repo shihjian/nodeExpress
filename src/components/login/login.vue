@@ -47,9 +47,11 @@ export default {
         localStorage.setItem("user", singIn.data.name);
         localStorage.setItem("photo", singIn.data.photo);
         router.push({ name: "postWall" });
+        console.log("錯誤提示1", singIn);
       } catch (err) {
-        message.value = err.response.data.message;
         status.value = true;
+        message.value = err.message;
+        console.log("錯誤提示2", err.message);
       }
     };
 

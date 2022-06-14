@@ -37,13 +37,13 @@ body {
 }
 </style>
 <style scoped lang="scss">
-.window {
+/* .window {
   background-color: #efece7;
   width: 100%;
   height: 100vh;
   z-index: 9999;
   position: absolute;
-}
+} */
 .windows8 {
   position: absolute;
   top: 50%;

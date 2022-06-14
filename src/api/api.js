@@ -17,6 +17,7 @@ userRequest.interceptors.request.use(
   },
   (error) => {
     // 如果送出前失敗了，這邊就可以做一些處理
+    store.commit("setApiStatus", false);
     return Promise.reject(error);
   }
 );
@@ -29,6 +30,7 @@ userRequest.interceptors.response.use(
   },
   (error) => {
     // 這邊當API發生錯誤的時候就可以處理 Error handling
+    store.commit("setApiStatus", false);
     return Promise.reject(error.response.data);
   }
 );

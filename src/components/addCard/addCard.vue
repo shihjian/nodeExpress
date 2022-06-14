@@ -40,7 +40,7 @@ export default {
       reader.addEventListener("load", imageLoader);
       reader.readAsDataURL(file);
       postFile.value = file;
-      
+      upload();
     };
 
     const imageLoader = (event) => {
@@ -60,7 +60,6 @@ export default {
 
     const submit = async () => {
       try {
-        await upload();
         const post = await apiPostPosts(data);
         console.log("post", post);
       } catch (err) {
