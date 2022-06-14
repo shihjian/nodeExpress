@@ -27,6 +27,7 @@ import { useRouter } from "vue-router";
 import { ref, reactive } from "vue";
 export default {
   setup() {
+    const router = useRouter();
     const image = ref("");
     const postFile = ref(null);
     const data = reactive({
@@ -60,8 +61,10 @@ export default {
 
     const submit = async () => {
       try {
-        const post = await apiPostPosts(data);
-        console.log("post", post);
+        await apiPostPosts(data);
+        data.content = "";
+        image.value = "";
+        router.push({ name: "postWall" });
       } catch (err) {
         console.log(err);
       }

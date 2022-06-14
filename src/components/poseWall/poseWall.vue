@@ -25,7 +25,7 @@
       <div class="userContent">
         <div class="userContentBox">
           <div class="img">
-            <img src="../../assets/img/default.png" alt="user" />
+            <img :src="item.user.name" @error="imgError" />
           </div>
           <div class="userInfo">
             <p>{{ item.user.name }}</p>
@@ -45,7 +45,7 @@
         <div class="userControl">
           <div class="messageArea">
             <div class="img">
-              <img src="../../assets/img/default.png" alt="photo" />
+              <img :src="userInfo.photo" @error="imgError" />
             </div>
             <div class="btnGroup">
               <input
@@ -64,11 +64,11 @@
             :key="comments.content"
           >
             <div class="img">
-              <img src="../../assets/img/default.png" alt="img" />
+              <img :src="comments.user.name" @error="imgError" />
             </div>
             <div class="messageInfo">
               <p>{{ comments.user.name }}</p>
-              <p class="date">{{comments.createdAt}}</p>
+              <p class="date">{{ comments.createdAt }}</p>
               <p class="contentInner">{{ comments.comment }}</p>
             </div>
           </div>
@@ -89,6 +89,9 @@ import { onMounted, reactive, ref, watch } from "vue";
 export default {
   setup() {
     const data = ref();
+    const userInfo =reactive({
+      photo:localStorage.getItem("photo")
+    })
     const messageContent = reactive({
       id: "",
       comment: "",
@@ -128,6 +131,11 @@ export default {
       }
     };
 
+    // 大頭貼
+    const imgError = (e) => {
+      e.target.src = "https://i.imgur.com/Om3aNlE.png";
+    };
+
     watch(
       () => select.sort,
       async (newValue) => {
@@ -139,7 +147,7 @@ export default {
     onMounted(() => {
       getData();
     });
-    return { data, select, searchKey, message, messageContent };
+    return { data, select, searchKey, message, messageContent, imgError,userInfo };
   },
 };
 </script>
@@ -171,6 +179,8 @@ input {
     border: 2px solid #000;
     .searchBox {
       display: flex;
+      justify-content: space-between;
+      background-color: #fff;
       .icon {
         width: 46px;
         height: 49px;
@@ -206,9 +216,7 @@ input {
           border: 2px solid #000400;
           background-color: #e2edfa;
           border-radius: 50%;
-          img {
-            width: 100%;
-          }
+          overflow: hidden;
         }
         .userInfo {
           padding-left: 16px;
@@ -244,6 +252,7 @@ input {
           margin-bottom: 16px;
           width: 100%;
           display: flex;
+
           .img {
             margin-right: 12px;
             width: 62px;
@@ -255,9 +264,7 @@ input {
             border: 2px solid #000400;
             background-color: #e2edfa;
             border-radius: 50%;
-            img {
-              width: 100%;
-            }
+            overflow: hidden;
           }
           .btnGroup {
             width: 100%;

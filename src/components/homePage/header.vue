@@ -4,7 +4,8 @@
       <div class="logo" @click="goHome()">MetaWall</div>
       <div class="img">
         <div class="userPhoto">
-          <img src="../../assets/img/default.png" alt="user" />
+          <img :src="userInfo.photo" @error="imgError" />
+          <!-- <img src="../../assets/img/default.png" alt="user" /> -->
         </div>
         <p @click="changeShow()">{{ userInfo.name }}</p>
         <div class="menu" v-show="showMenu">
@@ -30,6 +31,7 @@ export default {
     const showMenu = ref(false);
     const userInfo = reactive({
       name: null,
+      photo: null || "../../assets/img/default.png",
     });
     const changeShow = () => {
       showMenu.value = !showMenu.value;
@@ -44,13 +46,18 @@ export default {
 
     const setUserInfo = () => {
       userInfo.name = localStorage.getItem("user");
+      userInfo.photo = localStorage.getItem("photo");
+    };
+
+    const imgError = (e) => {
+      e.target.src = "https://i.imgur.com/Om3aNlE.png";
     };
 
     onMounted(() => {
       setUserInfo();
     });
 
-    return { showMenu, changeShow, goHome, goEdit, userInfo };
+    return { showMenu, changeShow, goHome, goEdit, userInfo, imgError };
   },
 };
 </script>
@@ -88,6 +95,7 @@ export default {
         border: 2px solid #000400;
         background-color: #e2edfa;
         border-radius: 50%;
+        overflow: hidden;
         img {
           width: 100%;
           height: 100%;
