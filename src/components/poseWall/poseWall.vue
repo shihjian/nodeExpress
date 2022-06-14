@@ -52,6 +52,7 @@
                 type="text"
                 placeholder="留言.."
                 v-model="messageContent.comment"
+                @keyup.enter="message(item.id)"
               />
               <div class="messageBox" @click.prevent="message(item.id)">
                 <p>留言</p>
@@ -89,9 +90,9 @@ import { onMounted, reactive, ref, watch } from "vue";
 export default {
   setup() {
     const data = ref();
-    const userInfo =reactive({
-      photo:localStorage.getItem("photo")
-    })
+    const userInfo = reactive({
+      photo: localStorage.getItem("photo"),
+    });
     const messageContent = reactive({
       id: "",
       comment: "",
@@ -147,7 +148,15 @@ export default {
     onMounted(() => {
       getData();
     });
-    return { data, select, searchKey, message, messageContent, imgError,userInfo };
+    return {
+      data,
+      select,
+      searchKey,
+      message,
+      messageContent,
+      imgError,
+      userInfo,
+    };
   },
 };
 </script>
