@@ -9,6 +9,7 @@ import {
   postPhoto,
   postMessage,
   updatePassword,
+  getSelfPosts,
 } from "@/api/api";
 
 // 登入
@@ -19,6 +20,8 @@ export const apiGetSignUp = getSignUp;
 export const apiPostPassword = updatePassword;
 // 取得貼文
 export const apiGetPosts = getPosts;
+// 取得個人貼文
+export const apiGetSelfPosts = getSelfPosts;
 // 發文
 export const apiPostPosts = postPosts;
 // 搜尋

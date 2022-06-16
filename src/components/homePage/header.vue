@@ -10,8 +10,8 @@
         <p @click="changeShow()">{{ userInfo.name }}</p>
         <div class="menu" v-show="showMenu">
           <ul>
-            <li>我的貼文牆</li>
-            <li @click="goEdit()">修改個人資料</li>
+            <li @click.prevent="goSelfPostWall">我的貼文牆</li>
+            <li @click.prevent="goEdit()">修改個人資料</li>
             <li>登出</li>
           </ul>
         </div>
@@ -53,11 +53,25 @@ export default {
       e.target.src = "https://i.imgur.com/Om3aNlE.png";
     };
 
+    const goSelfPostWall = () => {
+      const userId = localStorage.getItem("userId");
+      router.push({ path: `selfPostWall/${userId}` });
+      console.log("測試");
+    };
+
     onMounted(() => {
       setUserInfo();
     });
 
-    return { showMenu, changeShow, goHome, goEdit, userInfo, imgError };
+    return {
+      showMenu,
+      changeShow,
+      goHome,
+      goEdit,
+      userInfo,
+      imgError,
+      goSelfPostWall,
+    };
   },
 };
 </script>

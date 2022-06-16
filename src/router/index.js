@@ -24,19 +24,33 @@ const routes = [
         path: "postWall",
         name: "postWall",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../components/poseWall/poseWall.vue"),
+          import(
+            /* webpackChunkName: "about" */ "../components/poseWall/poseWall.vue"
+          ),
       },
       {
         path: "addCard",
         name: "addCard",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../components/addCard/addCard.vue"),
+          import(
+            /* webpackChunkName: "about" */ "../components/addCard/addCard.vue"
+          ),
       },
       {
         path: "editUser",
         name: "editUser",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../components/editUser/editUser.vue"),
+          import(
+            /* webpackChunkName: "about" */ "../components/editUser/editUser.vue"
+          ),
+      },
+      {
+        path: "selfPostWall/:id",
+        name: "selfPostWall",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "../components/selfPostWall/selfPostWall.vue"
+          ),
       },
     ],
   },

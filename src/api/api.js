@@ -47,6 +47,9 @@ export const postPassword = (data) =>userRequest.post("/users/updatePassword",da
 // 取得貼文
 export const getPosts = (data) => userRequest.get("/posts", data);
 
+// 取得個人貼文
+export const getSelfPosts = (data) => userRequest.get(`/posts/user/ ${data}`);
+
 // 取得貼文
 export const postPosts = (data) => userRequest.post("/posts", data);
 

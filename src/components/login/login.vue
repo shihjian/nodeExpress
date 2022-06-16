@@ -44,6 +44,7 @@ export default {
         const singIn = await apiGetSignIn(signIn);
         store.commit("setUserInfo", singIn.data);
         localStorage.setItem("token", singIn.data.token);
+        localStorage.setItem("userId", singIn.data.userId);
         localStorage.setItem("user", singIn.data.name);
         localStorage.setItem("photo", singIn.data.photo);
         router.push({ name: "postWall" });
