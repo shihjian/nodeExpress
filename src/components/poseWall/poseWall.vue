@@ -25,7 +25,7 @@
       <div class="userContent">
         <div class="userContentBox">
           <div class="img">
-            <img :src="item.user.name" @error="imgError" />
+            <img :src="item.user.photo" @error="imgError" />
           </div>
           <div class="userInfo">
             <p>{{ item.user.name }}</p>
@@ -65,7 +65,7 @@
             :key="comments.content"
           >
             <div class="img">
-              <img :src="comments.user.name" @error="imgError" />
+              <img :src="comments.user.photo" @error="imgError" />
             </div>
             <div class="messageInfo">
               <p>{{ comments.user.name }}</p>
