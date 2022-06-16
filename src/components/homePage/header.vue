@@ -56,7 +56,6 @@ export default {
     const goSelfPostWall = () => {
       const userId = localStorage.getItem("userId");
       router.push({ path: `selfPostWall/${userId}` });
-      console.log("測試");
     };
 
     onMounted(() => {
