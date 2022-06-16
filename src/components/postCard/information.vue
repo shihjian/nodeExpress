@@ -3,12 +3,12 @@
     <button @click="goAddCard">張貼動態</button>
     <div class="btn-group">
       <ul>
-        <li>
+        <!-- <li>
           <div class="userImg">
             <img src="@/assets/img/default.png" alt="" />
           </div>
           <p>邊緣小杰</p>
-        </li>
+        </li> -->
         <li>
           <div class="imgBox"><i class="far fa-bell"></i></div>
           <p>追蹤名單</p>
