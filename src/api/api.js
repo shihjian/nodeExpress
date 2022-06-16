@@ -41,8 +41,9 @@ export const getSignIn = (data) => userRequest.post("/users/sign_in", data);
 // 註冊
 export const getSignUp = (data) => userRequest.post("/users/sign_up", data);
 
-// 重設密碼 
-export const postPassword = (data) =>userRequest.post("/users/updatePassword",data)
+// 重設密碼
+export const updatePassword = (data) =>
+  userRequest.post("/users/updatePassword", data);
 
 // 取得貼文
 export const getPosts = (data) => userRequest.get("/posts", data);
@@ -70,3 +71,9 @@ export const postPhoto = (data) => userRequest.post("/upload", data);
 // 留言
 export const postMessage = (data) =>
   userRequest.post(`/posts/${data.id}/comment`, { comment: data.comment });
+
+// 點擊喜歡
+export const like = (data) => userRequest.post(`/posts/${data}/like`);
+
+// 取消喜歡
+export const unlike = (data) => userRequest.delete(`/posts/${data}/like`);

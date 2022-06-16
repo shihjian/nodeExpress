@@ -38,7 +38,7 @@
         <div class="userImg">
           <img :src="`${item.image}`" v-if="item.image" alt="img" />
         </div>
-        <div class="likeCount">
+        <div class="likeCount" @click.prevent="like(item.id)">
           <i class="fas fasLike fa-thumbs-up"></i>
           <p>{{ item.likes.length }}</p>
         </div>
@@ -85,6 +85,8 @@ import {
   apiGetSearch,
   apiGetSearchKey,
   apiPostMessage,
+  apiGetLike,
+  apiGetUnLike,
 } from "@/api/index";
 import { onMounted, reactive, ref, watch } from "vue";
 export default {
@@ -132,6 +134,17 @@ export default {
       }
     };
 
+    // 點擊按讚
+    const like = async (e) => {
+      try {
+        await apiGetLike(e);
+        getData();
+        // 其他的處理
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     // 大頭貼
     const imgError = (e) => {
       e.target.src = "https://i.imgur.com/Om3aNlE.png";
@@ -156,6 +169,7 @@ export default {
       messageContent,
       imgError,
       userInfo,
+      like,
     };
   },
 };

@@ -10,6 +10,8 @@ import {
   postMessage,
   updatePassword,
   getSelfPosts,
+  like,
+  unlike,
 } from "@/api/api";
 
 // 登入
@@ -34,3 +36,7 @@ export const apiPostUserInfo = postUserInfo;
 export const apiPostPhoto = postPhoto;
 // 貼文
 export const apiPostMessage = postMessage;
+// 點擊喜歡
+export const apiGetLike = like;
+// 取消喜歡
+export const apiGetUnLike = unlike;
