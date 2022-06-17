@@ -24,7 +24,7 @@
     <div class="chatContent" v-for="item in data" :key="item.content">
       <div class="userContent">
         <div class="userContentBox">
-          <div class="img">
+          <div class="img" @click.prevent="goSelfPostWall">
             <img :src="item.user.photo" @error="imgError" />
           </div>
           <div class="userInfo">
@@ -89,8 +89,10 @@ import {
   apiGetUnLike,
 } from "@/api/index";
 import { onMounted, reactive, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 export default {
   setup() {
+    const router = useRouter();
     const data = ref();
     const userInfo = reactive({
       photo: localStorage.getItem("photo"),
@@ -103,6 +105,11 @@ export default {
       sort: "desc",
       q: null,
     });
+
+    const goSelfPostWall = () => {
+      const userId = localStorage.getItem("userId");
+      router.push({ path: `selfPostWall/${userId}` });
+    };
 
     // 取得貼文
     const getData = async () => {
@@ -170,6 +177,7 @@ export default {
       imgError,
       userInfo,
       like,
+      goSelfPostWall,
     };
   },
 };
@@ -321,9 +329,7 @@ input {
             border: 2px solid #000400;
             background-color: #e2edfa;
             border-radius: 50%;
-            img {
-              width: 100%;
-            }
+            overflow: hidden;
           }
           .messageInfo {
             display: flex;
