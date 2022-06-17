@@ -21,6 +21,20 @@
         </div>
       </div>
     </div> -->
+    <div class="follow">
+      <div class="imgBox">
+        <img src="../../assets/img/default.png" alt="" />
+      </div>
+      <div class="contentBox">
+        <div class="userInfo">
+          <p>人明</p>
+          <p>人追蹤</p>
+        </div>
+        <div class="followBtnBox">
+          <div class="followBtn">追蹤</div>
+        </div>
+      </div>
+    </div>
     <div class="chatContent" v-for="item in data" :key="item.content">
       <div class="userContent">
         <div class="userContentBox">
@@ -207,6 +221,31 @@ input {
     }
   }
 
+  .follow {
+    display: flex;
+    align-items: center;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 2px solid #000400;
+    border-radius: 8px;
+    opacity: 1;
+    .contentBox {
+      width: 100%;
+      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .followBtnBox {
+        background: #eec32a 0% 0% no-repeat padding-box;
+        box-shadow: 0px 2px 0px #000400;
+        border: 2px solid #000400;
+        border-radius: 8px;
+        opacity: 1;
+        .followBtn {
+          padding: 6px 32px;
+        }
+      }
+    }
+  }
   .chatContent {
     padding: 24px 24px 0px 24px;
     background: #ffffff 0% 0% no-repeat padding-box;
