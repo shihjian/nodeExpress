@@ -10,6 +10,7 @@ import {
   postMessage,
   updatePassword,
   getSelfPosts,
+  userInfos,
   like,
   unlike,
 } from "@/api/api";
@@ -18,6 +19,8 @@ import {
 export const apiGetSignIn = getSignIn;
 // 註冊
 export const apiGetSignUp = getSignUp;
+// 動態取得個人資訊
+export const apiGetUserInfos = userInfos;
 // 更改密碼
 export const apiPostPassword = updatePassword;
 // 取得貼文

@@ -65,6 +65,9 @@ export const getSearchKey = (data) =>
 // 修改個人資訊
 export const postUserInfo = (data) => userRequest.patch("/users/profile", data);
 
+// 動態取得多人資訊
+export const userInfos = (data) => userRequest.get(`/users/profiles/${data}`);
+
 // 上傳圖片
 export const postPhoto = (data) => userRequest.post("/upload", data);
 

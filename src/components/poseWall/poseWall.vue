@@ -24,8 +24,8 @@
     <div class="chatContent" v-for="item in data" :key="item.content">
       <div class="userContent">
         <div class="userContentBox">
-          <div class="img" @click.prevent="goSelfPostWall">
-            <img :src="item.user.photo" @error="imgError" />
+          <div class="img" @click.prevent="goSelfPostWall(item.user._id)">
+            <img :src="item.user.photo || defaultImg" @error="imgError" />
           </div>
           <div class="userInfo">
             <p>{{ item.user.name }}</p>
@@ -94,6 +94,7 @@ export default {
   setup() {
     const router = useRouter();
     const data = ref();
+    const defaultImg = ref("https://i.imgur.com/Om3aNlE.png");
     const userInfo = reactive({
       photo: localStorage.getItem("photo"),
     });
@@ -106,9 +107,9 @@ export default {
       q: null,
     });
 
-    const goSelfPostWall = () => {
-      const userId = localStorage.getItem("userId");
-      router.push({ path: `selfPostWall/${userId}` });
+    const goSelfPostWall = (e) => {
+      // const userId = localStorage.getItem("userId");
+      router.push({ path: `selfPostWall/${e}` });
     };
 
     // 取得貼文
@@ -169,6 +170,7 @@ export default {
       getData();
     });
     return {
+      defaultImg,
       data,
       select,
       searchKey,
@@ -248,6 +250,7 @@ input {
           background-color: #e2edfa;
           border-radius: 50%;
           overflow: hidden;
+          cursor: pointer;
         }
         .userInfo {
           padding-left: 16px;
