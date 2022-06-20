@@ -57,7 +57,7 @@
         <div class="userControl">
           <div class="messageArea">
             <div class="img">
-              <img :src="userInfo.photo" @error="imgError" />
+              <img :src="userInfo.photo || defaultImg" @error="imgError" />
             </div>
             <div class="btnGroup">
               <input
@@ -77,7 +77,7 @@
             :key="comments.content"
           >
             <div class="img">
-              <img :src="comments.user.photo" @error="imgError" />
+              <img :src="comments.user.photo || defaultImg" @error="imgError" />
             </div>
             <div class="messageInfo">
               <p>{{ comments.user.name }}</p>
