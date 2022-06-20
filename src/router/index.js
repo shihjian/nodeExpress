@@ -52,6 +52,14 @@ const routes = [
             /* webpackChunkName: "about" */ "../components/selfPostWall/selfPostWall.vue"
           ),
       },
+      {
+        path: "getLikeList",
+        name: "getLikeList",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "../components/getLikeList/getLikeList.vue"
+          ),
+      },
     ],
   },
 ];

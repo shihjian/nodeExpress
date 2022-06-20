@@ -38,8 +38,20 @@
         <div class="userImg">
           <img :src="`${item.image}`" v-if="item.image" alt="img" />
         </div>
-        <div class="likeCount" @click.prevent="like(item.id)">
+        <div
+          class="likeCount"
+          v-if="item.likes.find((item) => item == userInfo.user)"
+          @click.prevent="unlike(item.id)"
+        >
           <i class="fas fasLike fa-thumbs-up"></i>
+          <p>{{ item.likes.length }}</p>
+        </div>
+        <div
+          class="likeCount"
+          v-if="!item.likes.find((item) => item == userInfo.user)"
+          @click.prevent="like(item.id)"
+        >
+          <i class="far fa-thumbs-up"></i>
           <p>{{ item.likes.length }}</p>
         </div>
         <div class="userControl">
@@ -94,9 +106,11 @@ export default {
   setup() {
     const router = useRouter();
     const data = ref();
+    const likeStatus = ref(false);
     const defaultImg = ref("https://i.imgur.com/Om3aNlE.png");
     const userInfo = reactive({
       photo: localStorage.getItem("photo"),
+      user: localStorage.getItem("userId"),
     });
     const messageContent = reactive({
       id: "",
@@ -112,7 +126,7 @@ export default {
       router.push({ path: `selfPostWall/${e}` });
     };
 
-    // 取得貼文
+    // 取得資料
     const getData = async () => {
       try {
         const item = await apiGetPosts();
@@ -144,8 +158,21 @@ export default {
 
     // 點擊按讚
     const like = async (e) => {
+      console.log("點讚");
       try {
         await apiGetLike(e);
+        getData();
+        // 其他的處理
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // 取消按讚
+    const unlike = async (e) => {
+      console.log("取消");
+      try {
+        await apiGetUnLike(e);
         getData();
         // 其他的處理
       } catch (err) {
@@ -180,6 +207,8 @@ export default {
       userInfo,
       like,
       goSelfPostWall,
+      likeStatus,
+      unlike,
     };
   },
 };
