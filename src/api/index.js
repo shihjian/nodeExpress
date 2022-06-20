@@ -11,6 +11,7 @@ import {
   updatePassword,
   getSelfPosts,
   userInfos,
+  userLikePosts,
   like,
   unlike,
 } from "@/api/api";
@@ -43,3 +44,5 @@ export const apiPostMessage = postMessage;
 export const apiGetLike = like;
 // 取消喜歡
 export const apiGetUnLike = unlike;
+// 取得點讚的文章
+export const apiGetUserLikePosts = userLikePosts;

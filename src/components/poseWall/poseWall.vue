@@ -122,7 +122,6 @@ export default {
     });
 
     const goSelfPostWall = (e) => {
-      // const userId = localStorage.getItem("userId");
       router.push({ path: `selfPostWall/${e}` });
     };
 

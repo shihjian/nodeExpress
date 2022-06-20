@@ -80,3 +80,6 @@ export const like = (data) => userRequest.post(`/posts/${data}/like`);
 
 // 取消喜歡
 export const unlike = (data) => userRequest.delete(`/posts/${data}/like`);
+
+// 取得按讚的文章
+export const userLikePosts = () => userRequest.get(`/users/getLikeList`);

@@ -13,7 +13,7 @@
           <div class="imgBox"><i class="far fa-bell"></i></div>
           <p>追蹤名單</p>
         </li>
-        <li>
+        <li @click.prevent="getLikeList">
           <div class="imgBox"><i class="far fa-thumbs-up"></i></div>
           <p>我按讚的名單</p>
         </li>
@@ -30,7 +30,10 @@ export default {
     const goAddCard = () => {
       router.push({ name: "addCard" });
     };
-    return { goAddCard };
+    const getLikeList = () => {
+      router.push({ name: "getLikeList" });
+    };
+    return { goAddCard, getLikeList };
   },
 };
 </script>
