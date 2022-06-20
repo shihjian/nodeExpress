@@ -43,7 +43,7 @@
       <div class="userContent">
         <div class="userContentBox">
           <div class="img">
-            <img :src="item.user.photo" @error="imgError" />
+            <img :src="item.user.photo || defaultImg" @error="imgError" />
           </div>
           <div class="userInfo">
             <p>{{ item.user.name }}</p>
@@ -63,7 +63,10 @@
         <div class="userControl">
           <div class="messageArea">
             <div class="img">
-              <img :src="userInfos.data.photo" @error="imgError" />
+              <img
+                :src="userInfos.data.photo || defaultImg"
+                @error="imgError"
+              />
             </div>
             <div class="btnGroup">
               <input
@@ -83,7 +86,7 @@
             :key="comments.content"
           >
             <div class="img">
-              <img :src="comments.user.photo" @error="imgError" />
+              <img :src="comments.user.photo || defaultImg" @error="imgError" />
             </div>
             <div class="messageInfo">
               <p>{{ comments.user.name }}</p>
