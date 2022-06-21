@@ -68,6 +68,8 @@ export const postUserInfo = (data) => userRequest.patch("/users/profile", data);
 // 動態取得多人資訊
 export const userInfos = (data) => userRequest.get(`/users/profiles/${data}`);
 
+// 取得個人資訊
+export const selfInfo = () => userRequest.get(`/users/profile`);
 // 上傳圖片
 export const postPhoto = (data) => userRequest.post("/upload", data);
 

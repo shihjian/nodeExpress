@@ -17,6 +17,7 @@ import {
   follow,
   unFollow,
   followList,
+  selfInfo,
 } from "@/api/api";
 
 // 登入
@@ -29,6 +30,8 @@ export const apiGetUserInfos = userInfos;
 export const apiPostPassword = updatePassword;
 // 取得貼文
 export const apiGetPosts = getPosts;
+// 取得個人資訊
+export const apiGetSelfInfo = selfInfo;
 // 取得個人貼文
 export const apiGetSelfPosts = getSelfPosts;
 // 發文

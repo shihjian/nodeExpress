@@ -2,7 +2,7 @@
   <div class="header">
     <div class="container">
       <div class="logo" @click="goHome()">MetaWall</div>
-      <div class="img">
+      <div class="img" v-if="loading">
         <div class="userPhoto">
           <img
             @click.prevent="goSelfPostWall"
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { apiGetSelfInfo } from "@/api/index";
 import { ref, reactive, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -32,11 +33,20 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
+    const loading = ref(false);
     const showMenu = ref(false);
     const userInfo = reactive({
       name: null,
       photo: null || "../../assets/img/default.png",
     });
+    const getData = async () => {
+      const userData = await apiGetSelfInfo();
+      const data = userData.data.msg;
+      userInfo.name = data.name;
+      userInfo.photo = data.photo;
+      loading.value = true;
+    };
+
     const changeShow = () => {
       showMenu.value = !showMenu.value;
     };
@@ -68,7 +78,8 @@ export default {
     };
 
     onMounted(() => {
-      setUserInfo();
+      // setUserInfo();
+      getData();
     });
 
     return {
@@ -80,6 +91,7 @@ export default {
       imgError,
       goSelfPostWall,
       SignOut,
+      loading,
     };
   },
 };

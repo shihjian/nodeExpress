@@ -78,9 +78,11 @@
 
 <script>
 import { apiPostUserInfo, apiPostPhoto, apiPostPassword } from "@/api/index";
+import { useRouter } from "vue-router";
 import { ref, reactive } from "vue";
 export default {
   setup() {
+    const router = useRouter();
     const checkType = ref("1");
     const image = ref(null);
     const postFile = ref(null);
@@ -102,6 +104,7 @@ export default {
     const changePassword = async () => {
       try {
         await apiPostPassword(password);
+        router.push({ name: "postWall" });
       } catch (err) {
         console.log(err);
         message.value = err.message;
@@ -112,6 +115,7 @@ export default {
       try {
         await upload();
         await apiPostUserInfo(data);
+        location.reload();
       } catch (err) {
         console.log(err);
       }

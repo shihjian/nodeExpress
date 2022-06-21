@@ -16,11 +16,16 @@
 // @ is an alias to /src
 import navbar from "@/components/homePage/header.vue";
 import information from "@/components/postCard/information.vue";
+import { onMounted, reactive, ref, watch, computed } from "vue";
 export default {
   name: "HomeView",
   components: {
     navbar,
     information,
+  },
+  setup() {
+    onMounted(() => {});
+    return {};
   },
 };
 </script>
