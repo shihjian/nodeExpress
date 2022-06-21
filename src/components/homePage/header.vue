@@ -6,7 +6,7 @@
         <div class="userPhoto">
           <img
             @click.prevent="goSelfPostWall"
-            :src="userInfo.photo"
+            :src="userInfo.photo || defaultImg"
             @error="imgError"
           />
           <!-- <img src="../../assets/img/default.png" alt="user" /> -->
@@ -33,6 +33,7 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
+    const defaultImg = ref("https://i.imgur.com/Om3aNlE.png");
     const loading = ref(false);
     const showMenu = ref(false);
     const userInfo = reactive({
@@ -92,6 +93,7 @@ export default {
       goSelfPostWall,
       SignOut,
       loading,
+      defaultImg,
     };
   },
 };
