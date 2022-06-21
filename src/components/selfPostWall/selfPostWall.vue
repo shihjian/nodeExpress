@@ -1,5 +1,5 @@
 <template>
-  <div class="poseWall">
+  <div class="poseWall" v-if="loading">
     <!-- <div class="btnGroup">
       <div class="select">
         <select v-model="select.sort">
@@ -34,8 +34,11 @@
           <p>{{ userInfos.data.name }}</p>
           <p>{{ followLength }}人追蹤</p>
         </div>
-        <div class="followBtnBox">
-          <div class="followBtn">追蹤</div>
+        <div class="followBtnBox" v-if="followStatus">
+          <div class="followBtn" @click.prevent="unFollow">取消追蹤</div>
+        </div>
+        <div class="unFollowBtnBox" v-if="!followStatus">
+          <div class="unFollowBtn" @click.prevent="follow">追蹤</div>
         </div>
       </div>
     </div>
@@ -107,13 +110,18 @@ import {
   apiGetSearchKey,
   apiPostMessage,
   apiGetUserInfos,
+  apiDeleteFollow,
+  apiPostFollow,
 } from "@/api/index";
+import { looseIndexOf } from "@vue/shared";
 import { onMounted, reactive, ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 export default {
   setup() {
     const route = useRoute();
     const data = ref();
+    const loading = ref(false);
+    const followStatus = ref(false);
     const defaultImg = ref("https://i.imgur.com/Om3aNlE.png");
     const followLength = ref();
     const status = ref(false);
@@ -135,15 +143,48 @@ export default {
     // 取得貼文
     const getData = async () => {
       try {
+        const userId = localStorage.getItem("userId");
         const id = route.params.id;
         const userInfo = await apiGetUserInfos(id);
         const item = await apiGetSelfPosts(id);
         userInfos.data = userInfo.data.msg[0];
         data.value = item.data.data;
         followLength.value = userInfo.data.msg[0].followers.length;
+        const checkFollowing = userInfo.data.msg[0].followers;
+        const checkFollowingType = checkFollowing.map((item) =>
+          item.user.indexOf(userId)
+        );
+        if (checkFollowingType == "0") {
+          followStatus.value = true;
+        } else {
+          followStatus.value = false;
+        }
         status.value = true;
+        loading.value = true;
       } catch (err) {
         console.error(err);
+      }
+    };
+
+    // 追蹤
+    const follow = async () => {
+      const id = route.params.id;
+      try {
+        await apiPostFollow(id);
+        getData();
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    //取消追蹤
+    const unFollow = async () => {
+      const id = route.params.id;
+      try {
+        await apiDeleteFollow(id);
+        getData();
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -195,6 +236,10 @@ export default {
       computedVariable,
       followLength,
       defaultImg,
+      follow,
+      unFollow,
+      followStatus,
+      loading,
     };
   },
 };
@@ -287,6 +332,17 @@ img {
         opacity: 1;
         cursor: pointer;
         .followBtn {
+          padding: 6px 32px;
+        }
+      }
+      .unFollowBtnBox {
+        background: #dddddd 0% 0% no-repeat padding-box;
+        box-shadow: 0px 2px 0px #000400;
+        border: 2px solid #000400;
+        border-radius: 8px;
+        opacity: 1;
+        cursor: pointer;
+        .unFollowBtn {
           padding: 6px 32px;
         }
       }

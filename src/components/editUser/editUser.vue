@@ -53,11 +53,22 @@
       <div v-show="checkType == 2" class="changePassword">
         <div class="changePasswordGroup">
           <p>輸入新密碼</p>
-          <input type="text" value="" placeholder="請輸入新密碼" />
+          <input
+            type="text"
+            placeholder="請輸入新密碼"
+            v-model="password.password"
+          />
           <p>再次輸入</p>
-          <input type="text" value="" placeholder="請再次輸入新密碼" />
+          <input
+            type="text"
+            placeholder="請再次輸入新密碼"
+            v-model="password.confirmPassword"
+          />
         </div>
-        <div class="submit">
+        <div class="message">
+          <p>{{ message }}</p>
+        </div>
+        <div class="submit" @click.prevent="changePassword">
           <div class="confirm"><p>更新密碼</p></div>
         </div>
       </div>
@@ -66,21 +77,35 @@
 </template>
 
 <script>
-import { apiGetSignIn, apiPostUserInfo, apiPostPhoto } from "@/api/index";
+import { apiPostUserInfo, apiPostPhoto, apiPostPassword } from "@/api/index";
 import { ref, reactive } from "vue";
 export default {
   setup() {
     const checkType = ref("1");
     const image = ref(null);
     const postFile = ref(null);
+    const message = ref(null);
     const data = reactive({
       name: "",
       sex: "male",
       photo: "",
     });
+    const password = reactive({
+      password: "",
+      confirmPassword: "",
+    });
 
     const changeType = (e) => {
       checkType.value = e;
+    };
+
+    const changePassword = async () => {
+      try {
+        await apiPostPassword(password);
+      } catch (err) {
+        console.log(err);
+        message.value = err.message;
+      }
     };
 
     const confirm = async () => {
@@ -98,7 +123,6 @@ export default {
       reader.addEventListener("load", imageLoader);
       reader.readAsDataURL(file);
       postFile.value = file;
-      
     };
 
     const imageLoader = async (event) => {
@@ -125,6 +149,9 @@ export default {
       upload,
       postFile,
       confirm,
+      password,
+      changePassword,
+      message,
     };
   },
 };
@@ -153,6 +180,11 @@ export default {
   opacity: 0;
   filter: alpha(opacity=0);
   cursor: pointer;
+}
+
+.message {
+  margin-bottom: 5px;
+  color: #ce0000;
 }
 
 .editUser {

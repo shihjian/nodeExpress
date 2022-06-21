@@ -9,7 +9,7 @@
           </div>
           <p>邊緣小杰</p>
         </li> -->
-        <li>
+        <li @click.prevent="getFollowList">
           <div class="imgBox"><i class="far fa-bell"></i></div>
           <p>追蹤名單</p>
         </li>
@@ -33,7 +33,10 @@ export default {
     const getLikeList = () => {
       router.push({ name: "getLikeList" });
     };
-    return { goAddCard, getLikeList };
+    const getFollowList = () => {
+      router.push({ name: "follow" });
+    };
+    return { goAddCard, getLikeList, getFollowList };
   },
 };
 </script>

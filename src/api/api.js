@@ -83,3 +83,12 @@ export const unlike = (data) => userRequest.delete(`/posts/${data}/like`);
 
 // 取得按讚的文章
 export const userLikePosts = () => userRequest.get(`/users/getLikeList`);
+
+// 追蹤
+export const follow = (data) => userRequest.post(`/users/${data}/follow`);
+
+// 取消追蹤
+export const unFollow = (data) => userRequest.delete(`/users/${data}/unfollow`);
+
+// 取得追蹤清單
+export const followList = () => userRequest.get(`/users/following`);

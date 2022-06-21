@@ -60,6 +60,14 @@ const routes = [
             /* webpackChunkName: "about" */ "../components/getLikeList/getLikeList.vue"
           ),
       },
+      {
+        path: "follow",
+        name: "follow",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "../components/follow/follow.vue"
+          ),
+      },
     ],
   },
 ];

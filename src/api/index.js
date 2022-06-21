@@ -14,6 +14,9 @@ import {
   userLikePosts,
   like,
   unlike,
+  follow,
+  unFollow,
+  followList,
 } from "@/api/api";
 
 // 登入
@@ -46,3 +49,9 @@ export const apiGetLike = like;
 export const apiGetUnLike = unlike;
 // 取得點讚的文章
 export const apiGetUserLikePosts = userLikePosts;
+// 追蹤
+export const apiPostFollow = follow;
+// 取消追蹤
+export const apiDeleteFollow = unFollow;
+// 取得追蹤清單
+export const apiGetFollowList = followList;
