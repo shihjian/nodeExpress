@@ -4,7 +4,11 @@
       <div class="logo" @click="goHome()">MetaWall</div>
       <div class="img">
         <div class="userPhoto">
-          <img @click.prevent="goSelfPostWall" :src="userInfo.photo" @error="imgError" />
+          <img
+            @click.prevent="goSelfPostWall"
+            :src="userInfo.photo"
+            @error="imgError"
+          />
           <!-- <img src="../../assets/img/default.png" alt="user" /> -->
         </div>
         <p @click="changeShow()">{{ userInfo.name }}</p>
@@ -12,7 +16,7 @@
           <ul>
             <li @click.prevent="goSelfPostWall">我的貼文牆</li>
             <li @click.prevent="goEdit()">修改個人資料</li>
-            <li>登出</li>
+            <li @click.prevent="SignOut">登出</li>
           </ul>
         </div>
       </div>
@@ -44,6 +48,11 @@ export default {
       router.push({ name: "editUser" });
     };
 
+    const SignOut = () => {
+      localStorage.clear();
+      router.push({ path: `/` });
+    };
+
     const setUserInfo = () => {
       userInfo.name = localStorage.getItem("user");
       userInfo.photo = localStorage.getItem("photo");
@@ -70,6 +79,7 @@ export default {
       userInfo,
       imgError,
       goSelfPostWall,
+      SignOut,
     };
   },
 };
