@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="submit">
-            <div class="confirm" @click.prevent="confirm"><p>送出更新</p></div>
+            <div class="confirm" @click.prevent="confirm" v-if="uploading"><p>送出更新</p></div>
           </div>
         </div>
       </div>
@@ -83,6 +83,7 @@ import { ref, reactive } from "vue";
 export default {
   setup() {
     const router = useRouter();
+    const uploading = ref(true);
     const checkType = ref("1");
     const image = ref(null);
     const postFile = ref(null);
@@ -113,7 +114,6 @@ export default {
 
     const confirm = async () => {
       try {
-        await upload();
         await apiPostUserInfo(data);
         location.reload();
       } catch (err) {
@@ -127,6 +127,7 @@ export default {
       reader.addEventListener("load", imageLoader);
       reader.readAsDataURL(file);
       postFile.value = file;
+      await upload();
     };
 
     const imageLoader = async (event) => {
@@ -137,8 +138,10 @@ export default {
       try {
         const formData = new FormData();
         formData.append("image", postFile.value);
+        uploading.value = false;
         const result = await apiPostPhoto(formData);
         data.photo = result.data.imgUrl;
+        uploading.value = true;
       } catch (e) {
         return Promise.reject(e);
       }
@@ -156,6 +159,7 @@ export default {
       password,
       changePassword,
       message,
+      uploading,
     };
   },
 };
